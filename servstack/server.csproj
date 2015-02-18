@@ -84,6 +84,7 @@
     <Reference Include="ServiceStack.Common">
       <HintPath>..\packages\ServiceStack.Common.3.9.59\lib\net35\ServiceStack.Common.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
@@ -91,6 +92,10 @@
     <Compile Include="src\AppHost.cs" />
     <Compile Include="src\Program.cs" />
     <Compile Include="src\Services\XXX.cs" />
+    <Compile Include="src\Node.cs" />
+    <Compile Include="src\HashTable.cs" />
+    <Compile Include="src\Range.cs" />
+    <Compile Include="src\Services\Connection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
