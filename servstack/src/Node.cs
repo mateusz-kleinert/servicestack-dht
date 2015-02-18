@@ -186,8 +186,22 @@ namespace servstack
 		{
 			var primarySplit = primaryRange.Split ();
 			var secondarySplit = secondaryRange.Split ();
-			primaryRange = primarySplit.Item1;
-			secondaryRange = secondarySplit.Item1;
+
+			int i;
+			for (i = 0; i < childrens.Count; ++i) {
+				if (childrens [i].Item1 == "") {
+					primarySplit = new Tuple<Range, Range>(new Range(1, 1), childrens [i].Item2);
+					secondarySplit = new Tuple<Range, Range>(new Range(1, 1), childrens [i].Item3);
+					break;
+				}
+			}
+
+			if (i < childrens.Count) {
+				childrens.RemoveAt (i);
+			} else {
+				primaryRange = primarySplit.Item1;
+				secondaryRange = secondarySplit.Item1;
+			}
 
 			childrens.Add (new Tuple<String, Range, Range> (host, primarySplit.Item2, secondarySplit.Item2));
 
