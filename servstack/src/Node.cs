@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using server.Services;
+using ServiceStack.ServiceClient.Web;
 
 namespace servstack
 {
@@ -86,7 +88,12 @@ namespace servstack
 					if (route == "") {
 						hashTable.Delete(key);
 					} else {
-						//
+						try {
+							var client = new JsonServiceClient ("http://" + route);
+							client.Delete(new Replica { Hn = hn, Key = key, Value = "" });
+						} catch (Exception) {
+							Join (route);
+						}
 					}
 				} else {
 					int hash = HashFunctions.h2 (key);
@@ -94,7 +101,12 @@ namespace servstack
 					if (route == "") {
 						hashTable.Delete(key);
 					} else {
-						//
+						try {
+							var client = new JsonServiceClient ("http://" + route);
+							client.Delete(new Replica { Hn = hn, Key = key, Value = "" });
+						} catch (Exception) {
+							Join (route);
+						}
 					}
 				}
 				return true;
@@ -135,14 +147,9 @@ namespace servstack
 				);
 		}
 
-		public void ChildJoin (String host)
+		public void Join (String host)
 		{
 			//TODO: take child over
-		}
-
-		public void ParentJoin (String host)
-		{
-			//TODO: take parent over
 		}
 
 		private String Route (int hash, int hn)
