@@ -12,26 +12,26 @@ namespace server
 
         private static void Main (string[] args)
 		{
-			if (args.Length > 1) {
-				var client = new JsonServiceClient ("http://127.0.0.1:8889/");
-				HelloResponse resp = client.Get (new Hello { Name = "World" });
-				Console.WriteLine (resp.Result);
+			ushort port;
+			if (args.Length == 0)
+				port = 8888;
+			else
+				port = ushort.Parse(args[0]);
 
-				//node = new Node (new Range(0, 1000), new Range(4000, 5000), "", new List<Tuple<String, String>> ());
+			if (args.Length > 1) {
+				var client = new JsonServiceClient ("http://" + args[1]);
+				ConnectionResponse resp = client.Post(new Connection { Port = port });
+				Console.WriteLine("Connected to " + "http://" + args[1]);
+
+				node = new Node (resp.Primary, resp.Secondary, "http://" + args[1], resp.Data);
 			} else {
 				node = new Node (new Range(0, 1000), new Range(4000, 5000), "", new List<Tuple<String, String>> ());
 			}
 
             var appHost = new AppHost();
             appHost.Init();
-			ushort port;
 
-			if (args.Length == 0)
-            	port = 8888;
-			else
-				port = ushort.Parse(args[0]);
-            
-			string listeningOn = string.Format("http://*:{0}/", port);
+			string listeningOn = string.Format("http://127.0.0.1:{0}/", port);
             appHost.Start(listeningOn);
 
             Console.WriteLine("AppHost created at {0}, listening on {1}", DateTime.Now, listeningOn);

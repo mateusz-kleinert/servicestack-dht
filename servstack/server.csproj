@@ -91,7 +91,6 @@
     <Compile Include="src\Services\Hello.cs" />
     <Compile Include="src\AppHost.cs" />
     <Compile Include="src\Program.cs" />
-    <Compile Include="src\Services\XXX.cs" />
     <Compile Include="src\Node.cs" />
     <Compile Include="src\HashTable.cs" />
     <Compile Include="src\Range.cs" />
