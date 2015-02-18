@@ -33,6 +33,12 @@ namespace servstack
 		{
 			//TODO:
 		}
+
+		public List<Tuple<String, String>> GetFromRange (Range range)
+		{
+			//TODO: get, delete, return
+			return new List<Tuple<String, String>> ();
+		}
 	}
 }
 

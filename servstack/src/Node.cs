@@ -89,12 +89,27 @@ namespace servstack
 			return false;
 		}
 
-		public Tuple<Range, Range, List<Tuple<String, String>>> ChildCreate(String host) {
-			//TODO: split algorithm
+		public Tuple<Range, Range, List<Tuple<String, String>>> ChildCreate(String host)
+		{
+			var primarySplit = primaryRange.Split();
+			var secondarySplit = secondaryRange.Split();
+			primaryRange = primarySplit.Item1;
+			secondaryRange = secondarySplit.Item1;
+
+			childrens.Add(new Tuple<String, Range, Range> (host,primarySplit.Item2,secondarySplit.Item2));
+
+			var chunk1 = hashTable.GetFromRange(primarySplit.Item2);
+			var chunk2 = hashTable.GetFromRange(secondarySplit.Item2);
+			var all = new List<Tuple<String, String>> (chunk1.Count + chunk2.Count);
+			all.AddRange(chunk1);
+			all.AddRange(chunk2);
+
+			Console.WriteLine("( " + primaryRange + ", " + secondaryRange + " )");
+
 			return new Tuple<Range, Range, List<Tuple<String, String>>> (
-				new Range(1, 1),
-				new Range(1, 1),
-				new List<Tuple<String, String>> ()
+				primarySplit.Item2,
+				secondarySplit.Item2,
+				all
 				);
 		}
 	}
