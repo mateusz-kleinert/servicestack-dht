@@ -25,7 +25,7 @@ namespace server
 					var client = new JsonServiceClient ("http://" + args[2]);
 					ConnectionResponse resp = client.Post(new Connection { Port = port });
 					Console.WriteLine("Connected to " + "http://" + args[2]);
-					node = new Node (resp.Primary, resp.Secondary, "http://" + args[2], resp.Data);
+					node = new Node (resp.Primary, resp.Secondary, args[2], resp.Data);
 				} catch (Exception) {
 					Console.WriteLine("Cannot connect to " + "http://" + args[2]);
 					return;
