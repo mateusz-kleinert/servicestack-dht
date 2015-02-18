@@ -19,6 +19,7 @@ namespace servstack
 		public void Insert (KeyValuePair<String, String> kv)
 		{
 			hashTable.Add (kv.Key, kv.Value);
+			Console.WriteLine(hashTable.ToString());
 		}
 
 		public KeyValuePair<String, String> Find (String key)
