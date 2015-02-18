@@ -27,7 +27,7 @@ namespace server.Services
 		public object Post(Connection request)
 		{
 			HttpListenerRequest iHttpListenerRequest = (HttpListenerRequest)base.RequestContext.Get<IHttpRequest>().OriginalRequest;
-			string ip = iHttpListenerRequest.RemoteEndPoint.ToString().Split(':')[0];
+			string ip = iHttpListenerRequest.RemoteEndPoint.ToString().Split(':')[0].Substring(7);
 
 			var results = Program.node.ChildCreate(ip + ":" + request.Port.ToString());
 			return new ConnectionResponse {Primary = results.Item1, Secondary = results.Item2, Data = results.Item3};

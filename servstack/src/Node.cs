@@ -155,7 +155,7 @@ namespace servstack
 				if (hn == 1) {
 					int hash = HashFunctions.h1 (key);
 					String route = Route(hash,hn);
-					Console.WriteLine(route);
+					Console.WriteLine (route);
 					if (route == "") {
 						hashTable.Delete(key);
 					} else {
@@ -169,7 +169,7 @@ namespace servstack
 				} else {
 					int hash = HashFunctions.h2 (key);
 					String route = Route(hash,hn);
-					Console.WriteLine(route);
+					Console.WriteLine (route);
 					if (route == "") {
 						hashTable.Delete(key);
 					} else {
