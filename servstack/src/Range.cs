@@ -14,7 +14,7 @@ namespace servstack
 
 		public override string ToString ()
 		{
-			return string.Format ("{0}x{1}", lowerBound, upperBound);
+			return string.Format ("({0}x{1})", lowerBound, upperBound);
 		}
 	}
 }

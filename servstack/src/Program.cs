@@ -25,7 +25,12 @@ namespace server
 
 				node = new Node (resp.Primary, resp.Secondary, "http://" + args[1], resp.Data);
 			} else {
-				node = new Node (new Range(0, 1000), new Range(4000, 5000), "", new List<Tuple<String, String>> ());
+				node = new Node (new Range(Hardcode.PrimaryLowerBound,
+				                           Hardcode.PrimaryUpperBound),
+				                 new Range(Hardcode.SecondaryLowerBound,
+				          				   Hardcode.SecondaryUpperBound),
+				                 "",
+				                 new List<Tuple<String, String>> ());
 			}
 
             var appHost = new AppHost();

@@ -29,13 +29,8 @@ namespace server.Services
 			HttpListenerRequest iHttpListenerRequest = (HttpListenerRequest)base.RequestContext.Get<IHttpRequest>().OriginalRequest;
 			string ip = iHttpListenerRequest.RemoteEndPoint.ToString().Split(':')[0];
 
-			//TODO: metoda {
-			//TODO: compute ranges for children
-			Program.node.childrens.Add (new Tuple<String, Range, Range> (ip + ":" + request.Port.ToString(), new Range(1, 1), new Range(1, 1)));
-			// }
-
-			Console.Out.WriteLine (Program.node.childrens.ToJson());
-			return new ConnectionResponse {Primary = new Range(1, 1), Secondary = new Range(1, 1), Data = new List<Tuple<String, String>> ()};
+			var results = Program.node.ChildCreate(ip + ":" + request.Port.ToString());
+			return new ConnectionResponse {Primary = results.Item1, Secondary = results.Item2, Data = results.Item3};
 		}
 	}
 }

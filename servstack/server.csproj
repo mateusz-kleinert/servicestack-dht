@@ -96,6 +96,8 @@
     <Compile Include="src\Range.cs" />
     <Compile Include="src\Services\Connection.cs" />
     <Compile Include="src\Services\Dht.cs" />
+    <Compile Include="src\Services\Replica.cs" />
+    <Compile Include="src\Hardcode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
