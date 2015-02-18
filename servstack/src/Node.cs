@@ -29,10 +29,8 @@ namespace servstack
 		public bool Insert (KeyValuePair<String, String> kv)
 		{
 			if (kv.Key != "") {
-				// compute h1
-				// route it
-				// compute h2
-				// route it
+				Insert (kv,1);
+				Insert (kv,2);
 				return true;
 			}
 			return false;
@@ -41,8 +39,33 @@ namespace servstack
 		public bool Insert (KeyValuePair<String, String> kv, int hn)
 		{
 			if (hn > 0 && hn < 3 && kv.Key != "") {
-				// compute hn
-				// route it
+				if (hn == 1) {
+					int hash = HashFunctions.h1 (kv.Key);
+					String route = Route(hash,hn);
+					if (route == "") {
+						hashTable.Insert(kv);
+					} else {
+						try {
+							var client = new JsonServiceClient ("http://" + route);
+							client.Post(new Replica { Hn = hn, Key = kv.Key, Value = kv.Value });
+						} catch (Exception) {
+							Join (route);
+						}
+					}
+				} else {
+					int hash = HashFunctions.h2 (kv.Key);
+					String route = Route(hash,hn);
+					if (route == "") {
+						hashTable.Insert(kv);
+					} else {
+						try {
+							var client = new JsonServiceClient ("http://" + route);
+							client.Post(new Replica { Hn = hn, Key = kv.Key, Value = kv.Value });
+						} catch (Exception) {
+							Join (route);
+						}
+					}
+				}
 				return true;
 			}
 			return false;
@@ -63,8 +86,35 @@ namespace servstack
 		public KeyValuePair<String, String> Find (String key, int hn)
 		{
 			if (hn > 0 && hn < 3 && key != "") {
-				// compute hn
-				// route it
+				if (hn == 1) {
+					int hash = HashFunctions.h1 (key);
+					String route = Route(hash,hn);
+					if (route == "") {
+						return hashTable.Find(key);
+					} else {
+						try {
+							var client = new JsonServiceClient ("http://" + route);
+							ReplicaResponse resp = client.Get(new Replica { Hn = hn, Key = key, Value = "" });
+							return resp.Result;
+						} catch (Exception) {
+							Join (route);
+						}
+					}
+				} else {
+					int hash = HashFunctions.h2 (key);
+					String route = Route(hash,hn);
+					if (route == "") {
+						return hashTable.Find(key);
+					} else {
+						try {
+							var client = new JsonServiceClient ("http://" + route);
+							ReplicaResponse resp = client.Get(new Replica { Hn = hn, Key = key, Value = "" });
+							return resp.Result;
+						} catch (Exception) {
+							Join (route);
+						}
+					}
+				}
 			}
 			return new KeyValuePair<String, String> ("","");
 		}
