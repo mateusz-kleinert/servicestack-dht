@@ -74,11 +74,29 @@ namespace servstack
 		public KeyValuePair<String, String> Find (String key)
 		{
 			if (key != "") {
-				// compute h1
-				// compute h2
-				// if both local then check em
-				// if one local check him and route another if needed
-				// if noone local route h1 and if not found, route h2
+				int hash1 = HashFunctions.h1 (key);
+				int hash2 = HashFunctions.h2 (key);
+
+				String route1 = Route(hash1,1);
+				String route2 = Route(hash2,2);
+
+				if (route1 == "") {
+					var element = hashTable.Find(key);
+					if (element.Key != "") {
+						return element;
+					}
+				}
+				if (route2 == "") {
+					var element = hashTable.Find(key);
+					if (element.Key != "") {
+						return element;
+					}
+				}
+				var found = Find (key,1);
+				if (found.Key == "") {
+					found = Find (key,2);
+				}
+				return found;
 			}
 			return new KeyValuePair<String, String> ("","");
 		}
@@ -199,7 +217,18 @@ namespace servstack
 
 		public void Join (String host)
 		{
-			//TODO: take child over
+			if (host != parent) {
+				int i = 0;
+				for (; i < childrens.Count; i++) {
+					if (childrens [i].Item1 == host) {
+						break;
+					}
+				}
+				childrens.Add (new Tuple<String, Range, Range> ("", childrens[i].Item2, childrens[i].Item3));
+				childrens.RemoveAt(i);
+			} else {
+				parent = "";
+			}
 		}
 
 		private String Route (int hash, int hn)
