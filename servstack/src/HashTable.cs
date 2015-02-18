@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ServiceStack.Text;
 
 namespace servstack
 {
@@ -19,7 +20,7 @@ namespace servstack
 		public void Insert (KeyValuePair<String, String> kv)
 		{
 			hashTable.Add (kv.Key, kv.Value);
-			Console.WriteLine(hashTable.ToString());
+			Console.WriteLine(hashTable.ToJson());
 		}
 
 		public KeyValuePair<String, String> Find (String key)

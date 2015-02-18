@@ -30,7 +30,7 @@ namespace servstack
 		{
 			if (kv.Key != "") {
 				Insert (kv,1);
-				//Insert (kv,2);
+				Insert (kv,2);
 				return true;
 			}
 			return false;
@@ -40,11 +40,8 @@ namespace servstack
 		{
 			if (hn > 0 && hn < 3 && kv.Key != "") {
 				if (hn == 1) {
-					Console.WriteLine("XXX");
 					int hash = HashFunctions.h1 (kv.Key);
-					Console.WriteLine("YYY");
 					String route = Route(hash,hn);
-					Console.WriteLine("{0}::{1}",hash,route);
 					if (route == "") {
 						hashTable.Insert(kv);
 					} else {

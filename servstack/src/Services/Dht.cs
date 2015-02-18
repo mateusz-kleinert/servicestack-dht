@@ -37,6 +37,7 @@ namespace server.Services
 
 		public object Delete(Dht request)
         {
+			Console.WriteLine(request.Key+"?");
 			return new DhtBoolResponse {Result = server.Program.node.Delete(request.Key)};
         }
     }
