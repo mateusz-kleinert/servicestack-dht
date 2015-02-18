@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace server.Services
 {
-    [Route("/dht", "POST")]
+    [Route("/dht", "POST DELETE GET")]
     [Route("/dht/{Key}", "GET")]
     public class Dht: IReturn<DhtResponse>
     {
@@ -37,7 +37,6 @@ namespace server.Services
 
 		public object Delete(Dht request)
         {
-			Console.WriteLine(request.Key+"?");
 			return new DhtBoolResponse {Result = server.Program.node.Delete(request.Key)};
         }
     }
