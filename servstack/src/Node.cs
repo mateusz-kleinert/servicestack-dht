@@ -20,6 +20,21 @@ namespace servstack
 			childrens = new List<Tuple<String, Range, Range>> ();
 			hashTable = new HashTable (data);
 		}
+
+		public void Insert (KeyValuePair<String, String> kv)
+		{
+			//TODO: add/update & replicate
+		}
+
+		public KeyValuePair<String, String> Find (String key)
+		{
+			//TODO: lookup
+		}
+
+		public void Delete (String Key)
+		{
+			//TODO: delete & replicate(delete)
+		}
 	}
 }
 

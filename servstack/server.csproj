@@ -95,6 +95,7 @@
     <Compile Include="src\HashTable.cs" />
     <Compile Include="src\Range.cs" />
     <Compile Include="src\Services\Connection.cs" />
+    <Compile Include="src\Services\Dht.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
