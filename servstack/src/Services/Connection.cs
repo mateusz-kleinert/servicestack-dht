@@ -3,6 +3,7 @@ using ServiceStack.ServiceInterface;
 using System.Collections.Generic;
 using System;
 using ServiceStack.Text;
+using servstack;
 
 namespace server.Services
 {
@@ -14,10 +15,8 @@ namespace server.Services
 
 	public class ConnectionResponse
 	{
-		public int primaryLowerBound { get; set; }
-		public int primaryUpperBound { get; set; }
-		public int secondaryLowerBound { get; set; }
-		public int secondaryUpperBound { get; set; }
+		public Range Primary { get; set; }
+		public Range Secondary { get; set; }
 		public List<Tuple<String, String>> Data { get; set; } 
 	}
 
@@ -25,8 +24,7 @@ namespace server.Services
 	{
 		public object Any(Connection request)
 		{
-			return new ConnectionResponse {primaryLowerBound = 10, primaryUpperBound = 1, 
-				secondaryLowerBound = 1, secondaryUpperBound = 1, Data = new List<Tuple<String, String>> ()};
+			return new ConnectionResponse {Primary = new Range(1, 1), Secondary = new Range(1, 1), Data = new List<Tuple<String, String>> ()};
 		}
 	}
 }
