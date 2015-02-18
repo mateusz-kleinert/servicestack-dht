@@ -38,7 +38,7 @@ namespace servstack
 
 		public bool Insert (KeyValuePair<String, String> kv, int hn)
 		{
-			if (hn > 0 && hn < 3) {
+			if (hn > 0 && hn < 3 && kv.Key != "") {
 				// compute hn
 				// route it
 				return true;
@@ -60,49 +60,71 @@ namespace servstack
 
 		public KeyValuePair<String, String> Find (String key, int hn)
 		{
-			if (hn > 0 && hn < 3) {
+			if (hn > 0 && hn < 3 && key != "") {
 				// compute hn
 				// route it
 			}
 			return new KeyValuePair<String, String> ("","");
 		}
 
-		public bool Delete (String Key)
+		public bool Delete (String key)
 		{
-			if (Key != "") {
-				// compute h1
-				// route it
-				// compute h2
-				// route it
+			if (key != "") {
+				Delete (key,1);
+				Delete (key,2);
 				return true;
 			}
 			return false;
 		}
 
-		public bool Delete (String Key, int hn)
+		public bool Delete (String key, int hn)
 		{
-			if (hn > 0 && hn < 3) {
-				// compute hn
-				// route it
+			if (hn > 0 && hn < 3 && key != "") {
+				if (hn == 1) {
+					int hash = HashFunctions.h1 (key);
+					String route = Route(hash,hn);
+					if (route == "") {
+						hashTable.Delete(key);
+					} else {
+						//
+					}
+				} else {
+					int hash = HashFunctions.h2 (key);
+					String route = Route(hash,hn);
+					if (route == "") {
+						hashTable.Delete(key);
+					} else {
+						//
+					}
+				}
 				return true;
 			}
 			return false;
 		}
 
-		public Tuple<Range, Range, List<Tuple<String, String>>> ChildCreate(String host)
+		public Tuple<Range, Range, List<Tuple<String, String>>> ChildCreate (String host)
 		{
-			var primarySplit = primaryRange.Split();
-			var secondarySplit = secondaryRange.Split();
+			var primarySplit = primaryRange.Split ();
+			var secondarySplit = secondaryRange.Split ();
 			primaryRange = primarySplit.Item1;
 			secondaryRange = secondarySplit.Item1;
 
-			childrens.Add(new Tuple<String, Range, Range> (host,primarySplit.Item2,secondarySplit.Item2));
+			childrens.Add (new Tuple<String, Range, Range> (host, primarySplit.Item2, secondarySplit.Item2));
 
-			var chunk1 = hashTable.GetFromRange(primarySplit.Item2);
-			var chunk2 = hashTable.GetFromRange(secondarySplit.Item2);
+			var chunk1 = hashTable.GetFromRange (primarySplit.Item2, 1);
+			var chunk2 = hashTable.GetFromRange (secondarySplit.Item2, 2);
 			var all = new List<Tuple<String, String>> (chunk1.Count + chunk2.Count);
-			all.AddRange(chunk1);
-			all.AddRange(chunk2);
+			all.AddRange (chunk1);
+			all.AddRange (chunk2);
+
+			foreach (Tuple<String, String> element in all) {
+				if (!primaryRange.Contains (HashFunctions.h1 (element.Item1)) &&
+					!primaryRange.Contains (HashFunctions.h2 (element.Item1)) &&
+					!secondaryRange.Contains (HashFunctions.h1 (element.Item1)) &&
+					!secondaryRange.Contains (HashFunctions.h2 (element.Item1))) {
+					hashTable.hashTable.Remove(element.Item1);
+				}
+			}
 
 			Console.WriteLine("( " + primaryRange + ", " + secondaryRange + " )");
 
@@ -111,6 +133,40 @@ namespace servstack
 				secondarySplit.Item2,
 				all
 				);
+		}
+
+		public void ChildJoin (String host)
+		{
+			//TODO: take child over
+		}
+
+		public void ParentJoin (String host)
+		{
+			//TODO: take parent over
+		}
+
+		private String Route (int hash, int hn)
+		{
+			if (hn == 1) {
+				if (primaryRange.Contains(hash)) {
+					return "";
+				}
+				foreach (Tuple<String, Range, Range> child in childrens) {
+					if (child.Item2.Contains(hash)) {
+						return child.Item1;
+					}
+				}
+			} else {
+				if (secondaryRange.Contains(hash)) {
+					return "";
+				}
+				foreach (Tuple<String, Range, Range> child in childrens) {
+					if (child.Item3.Contains(hash)) {
+						return child.Item1;
+					}
+				}
+			}
+			return parent;
 		}
 	}
 }

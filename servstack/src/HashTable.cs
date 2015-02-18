@@ -7,8 +7,6 @@ namespace servstack
 	{
 		public Dictionary<String, String> hashTable;
 
-		// get, set
-
 		public HashTable (List<Tuple<String, String>> data)
 		{
 			hashTable = new Dictionary<String, String>();
@@ -20,23 +18,31 @@ namespace servstack
 
 		public void Insert (KeyValuePair<String, String> kv)
 		{
-			//TODO:
+			hashTable.Add (kv.Key, kv.Value);
 		}
 
 		public KeyValuePair<String, String> Find (String key)
 		{
-			//TODO:
+			if (hashTable.ContainsKey(key)) {
+				return new KeyValuePair<string, string> (key, hashTable[key]);
+			}
 			return new KeyValuePair<String, String> ("","");
 		}
 
-		public void Delete (String Key)
+		public void Delete (String key)
 		{
-			//TODO:
+			hashTable.Remove(key);
 		}
 
-		public List<Tuple<String, String>> GetFromRange (Range range)
+		public List<Tuple<String, String>> GetFromRange (Range range, int hn)
 		{
-			//TODO: get, delete, return
+			var result = new List<Tuple<String, String>> ();
+			foreach (KeyValuePair<String, String> element in hashTable) {
+				if ((hn == 1 && range.Contains (HashFunctions.h1 (element.Key))) ||
+					(hn == 2 && range.Contains (HashFunctions.h2 (element.Key)))) {
+					result.Add (new Tuple<String, String> (element.Key, element.Value));
+				}
+			}
 			return new List<Tuple<String, String>> ();
 		}
 	}

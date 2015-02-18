@@ -19,11 +19,15 @@ namespace server
 				port = ushort.Parse(args[0]);
 
 			if (args.Length > 1) {
+				try {
 				var client = new JsonServiceClient ("http://" + args[1]);
 				ConnectionResponse resp = client.Post(new Connection { Port = port });
 				Console.WriteLine("Connected to " + "http://" + args[1]);
-
 				node = new Node (resp.Primary, resp.Secondary, "http://" + args[1], resp.Data);
+				} catch (Exception) {
+					Console.WriteLine("Cannot connect to " + "http://" + args[1]);
+					return;
+				}
 			} else {
 				node = new Node (new Range(Hardcode.PrimaryLowerBound,
 				                           Hardcode.PrimaryUpperBound),

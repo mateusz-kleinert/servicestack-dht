@@ -12,9 +12,18 @@ namespace servstack
 			upperBound = ub;
 		}
 
-		public Tuple<Range, Range> Split() {
+		public Tuple<Range, Range> Split()
+		{
 			return new Tuple<Range, Range> (new Range(lowerBound, (lowerBound+upperBound)/2),
 			                            new Range((lowerBound+upperBound)/2 + 1, upperBound));
+		}
+
+		public bool Contains (int x)
+		{
+			if (x >= lowerBound && x <= upperBound) {
+				return true;
+			}
+			return false;
 		}
 
 		public override string ToString ()
