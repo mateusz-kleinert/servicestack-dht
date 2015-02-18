@@ -6,21 +6,15 @@ namespace servstack
 	{
 		public static int h1 (String key)
 		{
-			return 300;
+			var hash = key.GetHashCode () > 0 ? key.GetHashCode () : -key.GetHashCode ();
+			return hash % (Hardcode.PrimaryUpperBound - Hardcode.PrimaryLowerBound + 1) + Hardcode.PrimaryLowerBound;
 		}
 
 		public static int h2 (String key)
 		{
-			return 4300;
+			var hash = key.GetHashCode () > 0 ? key.GetHashCode () : -key.GetHashCode ();
+			return hash % (Hardcode.SecondaryUpperBound - Hardcode.SecondaryLowerBound + 1) + Hardcode.SecondaryLowerBound;
 		}
-
-//		public static int h (String key, int hn)
-//		{
-//			if (hn == 1) {
-//				return h1 (key);
-//			}
-//			return h2 (key);
-//		}
 	}
 }
 

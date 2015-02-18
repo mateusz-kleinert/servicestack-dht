@@ -1,9 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="servstack/src/Program.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="servstack/src/Node.cs">
     <Files>
-      <File FileName="servstack/src/Program.cs" Line="15" Column="36" />
-      <File FileName="servstack/src/Services/Hello.cs" Line="1" Column="1" />
+      <File FileName="servstack/src/Program.cs" Line="16" Column="10" />
+      <File FileName="servstack/src/Node.cs" Line="51" Column="20" />
+      <File FileName="servstack/src/Hardcode.cs" Line="1" Column="1" />
+      <File FileName="servstack/src/HashFunctions.cs" Line="17" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
