@@ -82,7 +82,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="src\Services\Hello.cs" />
     <Compile Include="src\AppHost.cs" />
     <Compile Include="src\Program.cs" />
     <Compile Include="src\Node.cs" />
