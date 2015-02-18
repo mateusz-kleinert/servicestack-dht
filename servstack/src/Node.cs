@@ -21,19 +21,40 @@ namespace servstack
 			hashTable = new HashTable (data);
 		}
 
-		public void Insert (KeyValuePair<String, String> kv)
+		public bool Insert (KeyValuePair<String, String> kv)
 		{
-			//TODO: add/update & replicate
+			if (kv.Key != "") {
+				// compute h1
+				// route it
+				// compute h2
+				// route it
+				return true;
+			}
+			return false;
 		}
 
 		public KeyValuePair<String, String> Find (String key)
 		{
-			//TODO: lookup
+			if (key != "") {
+				// compute h1
+				// compute h2
+				// if both local then check em
+				// if one local check him and route another if needed
+				// if noone local route h1 and if not found, route h2
+			}
+			return new KeyValuePair<String, String> ("","");
 		}
 
-		public void Delete (String Key)
+		public bool Delete (String Key)
 		{
-			//TODO: delete & replicate(delete)
+			if (Key != "") {
+				// compute h1
+				// route it
+				// compute h2
+				// route it
+				return true;
+			}
+			return false;
 		}
 	}
 }

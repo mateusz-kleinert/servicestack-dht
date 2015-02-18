@@ -27,25 +27,17 @@ namespace server.Services
     {
         public object Post(Dht request)
         {
-			if (request.Key != "") {
-				server.Program.node.Insert(new KeyValuePair<String, String> (request.Key,request.Value));
-            	return new DhtBoolResponse {Result = true};
-			}
-			return new DhtBoolResponse {Result = false};
+			return new DhtBoolResponse {Result = server.Program.node.Insert(new KeyValuePair<String, String> (request.Key,request.Value))};
         }
 
 		public object Get (Dht request)
 		{
-			if (request.Key != "") {
-				return new DhtResponse {Result = server.Program.node.Find(request.Key)};
-			}
-			return new DhtResponse {Result = null};
+			return new DhtResponse {Result = server.Program.node.Find(request.Key)};
         }
 
 		public object Delete(Dht request)
         {
-			server.Program.node.Delete(request.Key);
-			return new DhtBoolResponse {Result = true};
+			return new DhtBoolResponse {Result = server.Program.node.Delete(request.Key)};
         }
     }
 }
