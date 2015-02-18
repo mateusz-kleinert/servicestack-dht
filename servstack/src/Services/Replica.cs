@@ -5,7 +5,7 @@ using System;
 
 namespace server.Services
 {
-    [Route("/replica")]
+    [Route("/replica", "POST GET DELETE")]
     public class Replica: IReturn<ReplicaResponse>
     {
         public int Hn { get; set; }

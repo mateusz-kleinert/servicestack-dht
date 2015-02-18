@@ -5,8 +5,8 @@ using System.Collections.Generic;
 
 namespace server.Services
 {
-    [Route("/dht")]
-    [Route("/dht/{Key}")]
+    [Route("/dht", "POST")]
+    [Route("/dht/{Key}", "GET")]
     public class Dht: IReturn<DhtResponse>
     {
         public string Key { get; set; }
@@ -25,7 +25,7 @@ namespace server.Services
 
     public class DhtService: Service
     {
-        public object Post(Dht request)
+		public DhtBoolResponse Post(Dht request)
         {
 			return new DhtBoolResponse {Result = server.Program.node.Insert(new KeyValuePair<String, String> (request.Key,request.Value))};
         }

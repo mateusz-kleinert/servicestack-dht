@@ -9,7 +9,7 @@ using System.Net;
 
 namespace server.Services
 {
-	[Route("/connection")]
+	[Route("/connection", "POST")]
 	public class Connection: IReturn<ConnectionResponse>
 	{
 		public int Port { get; set; }

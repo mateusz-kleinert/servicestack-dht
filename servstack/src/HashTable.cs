@@ -19,8 +19,10 @@ namespace servstack
 
 		public void Insert (KeyValuePair<String, String> kv)
 		{
-			hashTable.Add (kv.Key, kv.Value);
-			Console.WriteLine(hashTable.ToJson());
+			if (!hashTable.ContainsKey (kv.Key)) {
+				hashTable.Add (kv.Key, kv.Value);
+				Console.WriteLine (hashTable.ToJson ());
+			}
 		}
 
 		public KeyValuePair<String, String> Find (String key)
