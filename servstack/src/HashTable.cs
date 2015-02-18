@@ -35,8 +35,10 @@ namespace servstack
 
 		public void Delete (String key)
 		{	
-			if (hashTable.ContainsKey(key))
-				hashTable.Remove(key);
+			if (hashTable.ContainsKey (key)) {
+				hashTable.Remove (key);
+				Console.WriteLine (hashTable.ToJson ());
+			}
 		}
 
 		public List<Tuple<String, String>> GetFromRange (Range range, int hn)

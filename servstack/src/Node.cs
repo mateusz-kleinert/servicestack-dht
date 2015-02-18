@@ -41,6 +41,7 @@ namespace servstack
 			if (hn > 0 && hn < 3 && kv.Key != "") {
 				if (hn == 1) {
 					int hash = HashFunctions.h1 (kv.Key);
+					Console.WriteLine("H1: {0}",hash);
 					String route = Route(hash,hn);
 					if (route == "") {
 						hashTable.Insert(kv);
@@ -54,6 +55,7 @@ namespace servstack
 					}
 				} else {
 					int hash = HashFunctions.h2 (kv.Key);
+					Console.WriteLine("H2: {0}",hash);
 					String route = Route(hash,hn);
 					if (route == "") {
 						hashTable.Insert(kv);
